@@ -3,6 +3,7 @@ package com.sb.controller;
 import com.sb.po.PeopleInfos;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -38,12 +39,14 @@ public class RedisOpController{
                 String password = infos.get("password").toString();
                 String address = infos.get("address").toString();
                 String objname = infos.get("objname").toString();
-                stringRedisTemplate.opsForValue().set("username", username);
-                stringRedisTemplate.opsForValue().set("password", password);
+                stringRedisTemplate.opsForValue().set("username", username, 10, TimeUnit.SECONDS);
+                stringRedisTemplate.opsForValue().set("password", password, 15, TimeUnit.SECONDS);
+                // stringRedisTemplate.opsForValue().set("username", username);
+                // stringRedisTemplate.opsForValue().set("password", password);
                 PeopleInfos peopleInfos = new PeopleInfos();
                 peopleInfos.setName(username);
                 peopleInfos.setAddress(address);
-                redisTemplate.opsForValue().set(objname, peopleInfos);
+                redisTemplate.opsForValue().set(objname, peopleInfos, 15, TimeUnit.SECONDS);
                 tempMap.put("code", 200);
                 tempMap.put("infos", "添加成功");
                 return tempMap;

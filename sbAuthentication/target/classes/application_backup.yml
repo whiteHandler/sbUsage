@@ -1,11 +1,4 @@
 spring:
-  devtools: 
-    restart: 
-      enabled: true 
-      additional-paths: src/main/java
-  // freemarker: 
-  //   cache: false
-  profiles: dev
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/peopleinfosforsb?useUnicode=true&characterEncoding=UTF-8
@@ -32,29 +25,15 @@ spring:
       job-store-type: jdbc
   application: 
     name: quartz-cluster-node-second
-  redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    password: china@asia 
-    jedis: 
-      pool: 
-        max-active: 8 
-        max-idle: 8
-        max-wait: -1ms 
-        min-idle: 0
 mybatis:
   config-location: classpath:/mybatis-config.xml
 server:
-  port: 8090
+  port: 8201
+  ssl: 
+    key-store: classpath:videoanalysis.keystore
+    key-store-password: 123456
+    key-store-type: PKCS12
+    key-alias: tomcat
 logging: 
   level: 
     root: INFO
-// security: 
-//   user: 
-//     name: admin 
-//     password: 123456
-pagehelper: 
-  helper-dialect: mysql 
-  reasonable: true 
-  support-methods-arguments: true
